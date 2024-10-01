@@ -3,7 +3,6 @@ import cors from "cors";
 import ytdl from "ytdl-core";
 import { google } from "googleapis";
 import contentDisposition from "content-disposition";
-import statisticRoutes from "./routes";
 import dotenv from "dotenv";
 import { sendMail } from "./sendMail";
 dotenv.config();
