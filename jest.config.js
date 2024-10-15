@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testMatch: ['**/__tests__/**/*.test.js'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   transform: {
