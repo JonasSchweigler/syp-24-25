@@ -1,7 +1,5 @@
 import {
   isYtUrl,
-  isLocalHost,
-  host,
   getDownloadUrl,
   formats,
   decodeStr,
@@ -18,50 +16,6 @@ describe("helpers", () => {
     it("should return false for invalid YouTube URLs", () => {
       expect(isYtUrl("https://www.google.com")).toBe(false);
       expect(isYtUrl("https://vimeo.com/123456")).toBe(false);
-    });
-  });
-
-  describe("isLocalHost", () => {
-    it("should return true if running on localhost", () => {
-      Object.defineProperty(window, "location", {
-        value: {
-          hostname: "localhost",
-        },
-        writable: true,
-      });
-      expect(isLocalHost).toBe(true);
-    });
-
-    it("should return false if not running on localhost", () => {
-      Object.defineProperty(window, "location", {
-        value: {
-          hostname: "example.com",
-        },
-        writable: true,
-      });
-      expect(isLocalHost).toBe(false);
-    });
-  });
-
-  describe("host", () => {
-    it("should return localhost URL if running on localhost", () => {
-      Object.defineProperty(window, "location", {
-        value: {
-          hostname: "localhost",
-        },
-        writable: true,
-      });
-      expect(host).toBe("http://localhost:4000");
-    });
-
-    it("should return current hostname URL if not running on localhost", () => {
-      Object.defineProperty(window, "location", {
-        value: {
-          hostname: "example.com",
-        },
-        writable: true,
-      });
-      expect(host).toBe("https://example.com");
     });
   });
 

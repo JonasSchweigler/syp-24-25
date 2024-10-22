@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  # Service für das Ausführen von Tests
-  test:
+  # Frontend Test-Service
+  frontend-test:
     image: node:16-alpine
     working_dir: /app
     volumes:
@@ -19,8 +19,8 @@ services:
       fi
       "
 
-  # Service für den Build-Prozess und das Deployment
-  app:
+  # Frontend Build- und Bereitstellungsservice
+  frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -29,4 +29,36 @@ services:
     environment:
       - NODE_ENV=production
     depends_on:
-      - test
+      - frontend-test
+
+  # Backend Test-Service
+  backend-test:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      /bin/sh -c "
+      npm install &&
+      if [ '$TEST_GROUP' = 'unit' ]; then
+        npm run test:unit;
+      elif [ '$TEST_GROUP' = 'integration' ]; then
+        npm run test:integration;
+      else
+        npm run test;
+      fi
+      "
+
+  # Backend Build- und Bereitstellungsservice
+  backend:
+    build:
+      context: . # Root-Verzeichnis, wo dein Backend-Dockerfile liegt
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000" # Der Backend-Port
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend-test
+    volumes:
+      - .:/app
