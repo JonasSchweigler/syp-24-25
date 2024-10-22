@@ -1,9 +1,7 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import cors from "cors";
-import ytdl from "ytdl-core";
 import dotenv from "dotenv";
-import { sendMail } from "./sendMail";
-import {getYTMetaInfo} from "./controllers/yt-controller";
+import { getYTMetaInfo } from "./controllers/yt-controller";
 dotenv.config();
 
 const app: Express = express();
