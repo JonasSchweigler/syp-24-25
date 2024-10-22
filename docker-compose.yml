@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  # Service für das Ausführen von Tests
+  test:
+    image: node:16-alpine
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    command: >
+      /bin/sh -c "
+      npm install &&
+      if [ '$TEST_GROUP' = 'unit' ]; then
+        npm run test:unit;
+      elif [ '$TEST_GROUP' = 'integration' ]; then
+        npm run test:integration;
+      else
+        npm run test;
+      fi
+      "
+
+  # Service für den Build-Prozess und das Deployment
+  app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - test
