@@ -13,13 +13,13 @@ export const isYtUrl = (url: string) => {
 /**
  * Check if the page is running on localhost (dev environment).
  */
-export const isLocalHost = window.location.hostname === 'localhost';
+export const isLocalHost = window.location.hostname === "localhost";
 
 /**
  * Get the current host.
  */
 export const host = isLocalHost
-  ? 'http://localhost:4000'
+  ? "http://localhost:8080"
   : `https://${window.location.hostname}`;
 
 /**
@@ -28,17 +28,17 @@ export const host = isLocalHost
  * @param format Format, e.g. mp4, mp3
  * @returns
  */
-export const getDownloadUrl = (videoId: string, format = 'mp4') =>
+export const getDownloadUrl = (videoId: string, format = "mp4") =>
   `${host}/watch?v=${videoId}&format=${format}`;
 
 /**
  * Available formats to download.
  */
 export const formats = [
-  { text: 'MP4', format: '.mp4' },
-  { text: 'MP3', format: '.mp3' },
-  { text: 'MOV', format: '.mov' },
-  { text: 'FLV', format: '.flv' },
+  { text: "MP4", format: ".mp4" },
+  { text: "MP3", format: ".mp3" },
+  { text: "MOV", format: ".mov" },
+  { text: "FLV", format: ".flv" },
 ];
 
 /**
@@ -48,7 +48,7 @@ export const formats = [
  * @returns decoded string
  */
 export const decodeStr = (value: string) => {
-  const txt = new DOMParser().parseFromString(value, 'text/html');
+  const txt = new DOMParser().parseFromString(value, "text/html");
   return txt.documentElement.textContent;
 };
 
