@@ -19,7 +19,7 @@ export const isLocalHost = window.location.hostname === "localhost";
  * Get the current host.
  */
 export const host = isLocalHost
-  ? "http://localhost:8080"
+  ? "http://localhost:4000"
   : `https://${window.location.hostname}`;
 
 /**
