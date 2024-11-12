@@ -10,11 +10,6 @@ services:
     command: >
       /bin/sh -c "
       npm install &&
-      if [ '$TEST_GROUP' = 'unit' ]; then
-        npm run test:unit;
-      elif [ '$TEST_GROUP' = 'integration' ]; then
-        npm run test:integration;
-      else
         npm run test;
       fi
       "
@@ -40,13 +35,8 @@ services:
     command: >
       /bin/sh -c "
       npm install &&
-      if [ '$TEST_GROUP' = 'unit' ]; then
-        npm run test:unit;
-      elif [ '$TEST_GROUP' = 'integration' ]; then
-        npm run test:integration;
-      else
+
         npm run test;
-      fi
       "
 
   # Backend Build- und Bereitstellungsservice
