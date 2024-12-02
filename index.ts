@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app: Express = express();
-const port: string | number = process.env.PORT || 4000;
+const port: string | number = process.env.PORT || 45881;
 
 const youtube = google.youtube({
   version: "v3",
