@@ -22,13 +22,13 @@ describe("helpers", () => {
   describe("getDownloadUrl", () => {
     it("should return correct download URL with default format", () => {
       expect(getDownloadUrl("dQw4w9WgXcQ")).toBe(
-        "http://localhost:4000/watch?v=dQw4w9WgXcQ&format=mp4"
+        "http://localhost:45881/watch?v=dQw4w9WgXcQ&format=mp4"
       );
     });
 
     it("should return correct download URL with specified format", () => {
       expect(getDownloadUrl("dQw4w9WgXcQ", "mp3")).toBe(
-        "http://localhost:4000/watch?v=dQw4w9WgXcQ&format=mp3"
+        "http://localhost:45881/watch?v=dQw4w9WgXcQ&format=mp3"
       );
     });
   });
