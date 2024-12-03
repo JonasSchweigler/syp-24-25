@@ -24,7 +24,7 @@ export default function Main() {
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [pagingInfo, setPagingInfo] = useState<any>(null);
   const [error, setError] = useState(false);
-  const downloadBtnRef = useRef<HTMLAnchorElement>(null);
+  const downloadBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (downloadUrl.length && downloadBtnRef?.current) {
@@ -32,6 +32,18 @@ export default function Main() {
       downloadBtnRef.current.click();
     }
   }, [downloadUrl]);
+
+  async function downloadFile() {
+    const response = await fetch(downloadUrl);
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "file.mp3"; // Specify the filename
+    a.click();
+    window.URL.revokeObjectURL(url); // Clean up
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
@@ -155,9 +167,9 @@ export default function Main() {
         )}
       </Container>
       <VisuallyHidden>
-        <a href={downloadUrl} download ref={downloadBtnRef}>
+        <button type='button' onClick={downloadFile} ref={downloadBtnRef}>
           {downloadUrl}
-        </a>
+        </button>
       </VisuallyHidden>
     </>
   );
