@@ -32,7 +32,13 @@ async function searchYouTube(params: SearchParams = {}) {
 }
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow requests from React's dev server
+    methods: ["GET", "POST"],
+    credentials: true, // Include cookies if needed
+  })
+);
 app.use(express.json());
 
 /**
@@ -104,6 +110,48 @@ app.get("/metainfo", async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error(error);
     return res.status(400).json({ success: false, error });
+  }
+});
+
+/**
+ * Download a video with the selected format.
+ */
+app.get("/watch", async (req: Request, res: Response) => {
+  const { v: url, format: f = ".mp4" } = req.query as {
+    v?: string;
+    format?: string;
+  };
+
+  if (url === undefined || (!ytdl.validateID(url) && !ytdl.validateURL(url))) {
+    return res
+      .status(400)
+      .json({ success: false, error: "No valid YouTube Id!" });
+  }
+
+  const formats = [".mp4", ".mp3", ".mov", ".flv"];
+  let format: string = formats.includes(f) ? f : ".mp4";
+
+  try {
+    const result = await ytdl.getBasicInfo(url);
+    const {
+      videoDetails: { title },
+    } = result;
+
+    res.setHeader(
+      "Content-Disposition",
+      contentDisposition(`${title}${format}`)
+    );
+
+    let filterQuality: "audioandvideo" | "audioonly" =
+      format === ".mp3" ? "audioonly" : "audioandvideo";
+    ytdl(url, { filter: filterQuality })
+      .on("data", () => {
+        console.log("Downloading...");
+      })
+      .pipe(res);
+  } catch (err: any) {
+    console.error("error", err);
+    res.redirect(`http://${req.headers.host}?error=downloadError`);
   }
 });
 
