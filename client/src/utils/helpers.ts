@@ -20,7 +20,7 @@ export const isLocalHost = window.location.hostname === "localhost";
  */
 export const host = isLocalHost
   ? "http://localhost:8080"
-  : `https://${window.location.hostname}`;
+  : `${process.env.REACT_APP_API_URL}`;
 
 /**
  * Get download-url from YouTube-Video.
