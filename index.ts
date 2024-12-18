@@ -34,7 +34,7 @@ async function searchYouTube(params: SearchParams = {}) {
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // Allow requests from React's dev server
+    //origin: process.env.FRONTEND_URL, // Allow requests from React's dev server
     methods: ["GET", "POST"],
     credentials: true, // Include cookies if needed
   })

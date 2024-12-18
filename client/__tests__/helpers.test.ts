@@ -59,3 +59,25 @@ describe("helpers", () => {
     });
   });
 });
+
+const request = require("supertest");
+
+const api_request = request("http://localhost:8080");
+
+describe("Suggestions API", () => {
+  it("should contain the search keyword in the returned items", async () => {
+    const searchKeyword = "test";
+
+    const response = await api_request.get("/suggestions").query({ search: searchKeyword });
+
+    const { success, data } = response.body;
+
+    expect(success).toBe(true);
+
+    const containsKeyword = data.every((item: any) =>
+        JSON.stringify(item).toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+
+    expect(containsKeyword).toBe(true);
+  });
+});
