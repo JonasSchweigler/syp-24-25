@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Run Update Script
         run: |
-          sshpass -p "${USER_NAME}" ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOSTNAME} '
+          sshpass -p "${PRIVATE_KEY}" ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOSTNAME} '
             bash update-frontend.sh 
             bash update-backend.sh
           '
