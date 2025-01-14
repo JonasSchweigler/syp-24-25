@@ -129,7 +129,7 @@ export default function Main() {
               {colorMode === "light" ? <LogoBlack /> : <LogoWhite />}
             </Heading> */}
             <Heading size='2xl' mb='2'>
-              YouTube Downloader
+              YouTube Download
             </Heading>
           </Box>
           <Search
