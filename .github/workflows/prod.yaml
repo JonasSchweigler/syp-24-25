@@ -15,8 +15,7 @@ jobs:
     steps:
       - name: Run Update Script
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          sshpass -p "${USER_NAME}" ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOSTNAME} '
             bash update-frontend.sh 
             bash update-backend.sh
           '
