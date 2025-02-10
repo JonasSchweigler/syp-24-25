@@ -28,10 +28,12 @@ async function searchYouTube(params: SearchParams = {}) {
     type: "video",
     ...params,
   });
+
   return (res as any).data;
 }
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL, // Allow requests from React's dev server
@@ -39,6 +41,7 @@ app.use(
     credentials: true, // Include cookies if needed
   })
 );
+
 app.use(express.json());
 
 /**
