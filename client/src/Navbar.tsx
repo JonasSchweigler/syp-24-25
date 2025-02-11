@@ -19,7 +19,7 @@ export default function Navbar() {
                 href={`/`}
                 _hover={{ textDecoration: "none", color: "gray.500" }}
               >
-                Petersquelle
+                Test
               </Link>
             </Heading>
           </HStack>
